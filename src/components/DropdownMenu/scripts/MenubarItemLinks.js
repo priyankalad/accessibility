@@ -144,7 +144,7 @@ MenubarItem.prototype.handleMouseover = function (event) {
 
 MenubarItem.prototype.handleMouseout = function (event) {
   this.hasHover = false;
-  setTimeout(this.popupMenu.close.bind(this.popupMenu, false), 300);
+  setTimeout(this.popupMenu.close.bind(this.popupMenu, false), 200);
 };
 
 export default MenubarItem;
