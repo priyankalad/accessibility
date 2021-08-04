@@ -75,7 +75,6 @@ MenubarItem.prototype.handleKeydown = function (event) {
       break;
 
     case this.keyCode.RIGHT:
-      console.log(this);
       this.menu.setFocusToNextItem(this);
       flag = true;
       break;

@@ -1,12 +1,12 @@
 import "./styles.css";
-//import Menubar from "../../MenubarItemLinks"
+import Menubar from "./scripts/MenubarLinks";
 import { useEffect } from "react";
 
 function DropdownMenu() {
-  // useEffect(() => {
-  //   const menubar = new Menubar(document.getElementById("menubar1"));
-  //   menubar.init();
-  // }, []);
+   useEffect(() => {
+    var menubar = new Menubar(document.getElementById("menubar1"));
+    menubar.init();
+  }, []);
   return (
     <nav aria-label="Mythical University">
       <ul id="menubar1" role="menubar" aria-label="Mythical University">
