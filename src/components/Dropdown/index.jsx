@@ -28,7 +28,7 @@ export default function Dropdown() {
     toggleListVisibility(e);
   };
 
-  const handleKeyUp = (e) => {
+  const handleKeyDown = (e) => {
     toggleListVisibility(e);
   };
 
@@ -135,7 +135,7 @@ export default function Dropdown() {
             id="dropdown__selected"
             tabIndex="0"
             onClick={handleClick}
-            onKeyUp={handleKeyUp}
+            onKeyDown={handleKeyDown}
           >
             Option 1
           </div>
