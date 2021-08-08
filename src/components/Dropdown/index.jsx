@@ -2,128 +2,126 @@ import React, { useEffect } from "react";
 import "./styles.css";
 
 export default function Dropdown() {
+  const SPACEBAR_KEY_CODE = [0, 32];
+  const ENTER_KEY_CODE = 13;
+  const DOWN_ARROW_KEY_CODE = 40;
+  const UP_ARROW_KEY_CODE = 38;
+  const ESCAPE_KEY_CODE = 27;
+
+  let list = null;
+  let listContainer = null;
+  let dropdownArrow = null;
+  let listItems = null;
+  let dropdownSelectedNode = null;
+  let listItemIds = [];
+
   useEffect(() => {
-    const SPACEBAR_KEY_CODE = [0, 32];
-    const ENTER_KEY_CODE = 13;
-    const DOWN_ARROW_KEY_CODE = 40;
-    const UP_ARROW_KEY_CODE = 38;
-    const ESCAPE_KEY_CODE = 27;
-
-    const list = document.querySelector(".dropdown__list");
-    const listContainer = document.querySelector(".dropdown__list-container");
-    const dropdownArrow = document.querySelector(".dropdown__arrow");
-    const listItems = document.querySelectorAll(".dropdown__list-item");
-    const dropdownSelectedNode = document.querySelector("#dropdown__selected");
-    console.log("dropdownSelectedNode:", dropdownSelectedNode);
-    const listItemIds = [];
-
-    dropdownSelectedNode.addEventListener("click", (e) =>
-      toggleListVisibility(e)
-    );
-    dropdownSelectedNode.addEventListener("keydown", (e) =>
-      toggleListVisibility(e)
-    );
-
-    // Add each list item's id to the listItems array
+    list = document.querySelector(".dropdown__list");
+    listContainer = document.querySelector(".dropdown__list-container");
+    dropdownArrow = document.querySelector(".dropdown__arrow");
+    listItems = document.querySelectorAll(".dropdown__list-item");
+    dropdownSelectedNode = document.querySelector("#dropdown__selected");
     listItems.forEach((item) => listItemIds.push(item.id));
+  }, []);
 
-    listItems.forEach((item) => {
-      item.addEventListener("click", (e) => {
+  const handleClick = (e) => {
+    toggleListVisibility(e);
+  };
+
+  const handleKeyUp = (e) => {
+    toggleListVisibility(e);
+  };
+
+  const toggleListVisibility = (e) => {
+    let openDropDown =
+      SPACEBAR_KEY_CODE.includes(e.keyCode) || e.keyCode === ENTER_KEY_CODE;
+
+    if (e.keyCode === ESCAPE_KEY_CODE) {
+      closeList();
+    }
+
+    if (e.type === "click" || openDropDown) {
+      list.classList.toggle("open");
+      dropdownArrow.classList.toggle("expanded");
+      listContainer.setAttribute(
+        "aria-expanded",
+        list.classList.contains("open")
+      );
+    }
+
+    if (e.keyCode === DOWN_ARROW_KEY_CODE) {
+      focusNextListItem(DOWN_ARROW_KEY_CODE);
+    }
+
+    if (e.keyCode === UP_ARROW_KEY_CODE) {
+      focusNextListItem(UP_ARROW_KEY_CODE);
+    }
+  };
+
+  const closeList = () => {
+    list.classList.remove("open");
+    dropdownArrow.classList.remove("expanded");
+    listContainer.setAttribute("aria-expanded", false);
+  };
+
+  const focusNextListItem = (direction) => {
+    const activeElementId = document.activeElement.id;
+    if (activeElementId === "dropdown__selected") {
+      document.querySelector(`#${listItemIds[0]}`).focus();
+    } else {
+      const currentActiveElementIndex = listItemIds.indexOf(activeElementId);
+      if (direction === DOWN_ARROW_KEY_CODE) {
+        const currentActiveElementIsNotLastItem =
+          currentActiveElementIndex < listItemIds.length - 1;
+        if (currentActiveElementIsNotLastItem) {
+          const nextListItemId = listItemIds[currentActiveElementIndex + 1];
+          document.querySelector(`#${nextListItemId}`).focus();
+        }
+      } else if (direction === UP_ARROW_KEY_CODE) {
+        const currentActiveElementIsNotFirstItem =
+          currentActiveElementIndex > 0;
+        if (currentActiveElementIsNotFirstItem) {
+          const nextListItemId = listItemIds[currentActiveElementIndex - 1];
+          document.querySelector(`#${nextListItemId}`).focus();
+        }
+      }
+    }
+  };
+
+  const handleListItemClick = (e) => {
+    setSelectedListItem(e);
+    closeList();
+  };
+
+  const handleListItemKeyDown = (e) => {
+    switch (e.keyCode) {
+      case ENTER_KEY_CODE:
         setSelectedListItem(e);
         closeList();
-      });
+        return;
 
-      item.addEventListener("keydown", (e) => {
-        switch (e.keyCode) {
-          case ENTER_KEY_CODE:
-            setSelectedListItem(e);
-            closeList();
-            return;
-
-          case DOWN_ARROW_KEY_CODE:
-            focusNextListItem(DOWN_ARROW_KEY_CODE);
-            return;
-
-          case UP_ARROW_KEY_CODE:
-            focusNextListItem(UP_ARROW_KEY_CODE);
-            return;
-
-          case ESCAPE_KEY_CODE:
-            closeList();
-            return;
-
-          default:
-            return;
-        }
-      });
-    });
-
-    function setSelectedListItem(e) {
-      let selectedTextToAppend = document.createTextNode(e.target.innerText);
-      dropdownSelectedNode.innerHTML = null;
-      dropdownSelectedNode.appendChild(selectedTextToAppend);
-    }
-
-    function closeList() {
-      list.classList.remove("open");
-      dropdownArrow.classList.remove("expanded");
-      listContainer.setAttribute("aria-expanded", false);
-    }
-
-    function toggleListVisibility(e) {
-      let openDropDown =
-        SPACEBAR_KEY_CODE.includes(e.keyCode) || e.keyCode === ENTER_KEY_CODE;
-
-      if (e.keyCode === ESCAPE_KEY_CODE) {
-        closeList();
-      }
-
-      if (e.type === "click" || openDropDown) {
-        list.classList.toggle("open");
-        dropdownArrow.classList.toggle("expanded");
-        listContainer.setAttribute(
-          "aria-expanded",
-          list.classList.contains("open")
-        );
-      }
-
-      if (e.keyCode === DOWN_ARROW_KEY_CODE) {
+      case DOWN_ARROW_KEY_CODE:
         focusNextListItem(DOWN_ARROW_KEY_CODE);
-      }
+        return;
 
-      if (e.keyCode === UP_ARROW_KEY_CODE) {
+      case UP_ARROW_KEY_CODE:
         focusNextListItem(UP_ARROW_KEY_CODE);
-      }
-    }
+        return;
 
-    function focusNextListItem(direction) {
-      const activeElementId = document.activeElement.id;
-      if (activeElementId === "dropdown__selected") {
-        document.querySelector(`#${listItemIds[0]}`).focus();
-      } else {
-        const currentActiveElementIndex = listItemIds.indexOf(activeElementId);
-        if (direction === DOWN_ARROW_KEY_CODE) {
-          const currentActiveElementIsNotLastItem =
-            currentActiveElementIndex < listItemIds.length - 1;
-          if (currentActiveElementIsNotLastItem) {
-            const nextListItemId = listItemIds[currentActiveElementIndex + 1];
-            document.querySelector(`#${nextListItemId}`).focus();
-          }
-        } else if (direction === UP_ARROW_KEY_CODE) {
-          const currentActiveElementIsNotFirstItem =
-            currentActiveElementIndex > 0;
-          if (currentActiveElementIsNotFirstItem) {
-            const nextListItemId = listItemIds[currentActiveElementIndex - 1];
-            document.querySelector(`#${nextListItemId}`).focus();
-          }
-        }
-      }
+      case ESCAPE_KEY_CODE:
+        closeList();
+        return;
+
+      default:
+        return;
     }
-    return () => {
-      dropdownSelectedNode.removeEventListener("click", toggleListVisibility);
-      dropdownSelectedNode.removeEventListener("keydown", toggleListVisibility);
-    };
-  }, []);
+  };
+
+  const setSelectedListItem = (e) => {
+    let selectedTextToAppend = document.createTextNode(e.target.innerText);
+    dropdownSelectedNode.innerHTML = null;
+    dropdownSelectedNode.appendChild(selectedTextToAppend);
+  };
 
   return (
     <main>
@@ -132,7 +130,13 @@ export default function Dropdown() {
         <li className="dropdown__label">Label</li>
 
         <li>
-          <div role="button" id="dropdown__selected" tabIndex="0">
+          <div
+            role="button"
+            id="dropdown__selected"
+            tabIndex="0"
+            onClick={handleClick}
+            onKeyUp={handleKeyUp}
+          >
             Option 1
           </div>
         </li>
@@ -150,10 +154,22 @@ export default function Dropdown() {
         </li>
         <li className="dropdown__list-container">
           <ul className="dropdown__list">
-            <li className="dropdown__list-item" id="option-1" tabIndex="0">
+            <li
+              className="dropdown__list-item"
+              id="option-1"
+              tabIndex="0"
+              onClick={handleListItemClick}
+              onKeyDown={handleListItemKeyDown}
+            >
               Option 1
             </li>
-            <li className="dropdown__list-item" id="option-2" tabIndex="0">
+            <li
+              className="dropdown__list-item"
+              id="option-2"
+              tabIndex="0"
+              onClick={handleListItemClick}
+              onKeyDown={handleListItemKeyDown}
+            >
               Option 2
             </li>
           </ul>
