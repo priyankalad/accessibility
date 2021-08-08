@@ -1,11 +1,13 @@
 import logo from "./logo.svg";
-import "./App.css";
 import DropdownMenu from "./components/DropdownMenu";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import Menubar from "./components/DropdownMenu/scripts/MenubarLinks";
+import Dropdown from "./components/Dropdown";
 
 function App() {
-  return <DropdownMenu />;
+  // return <DropdownMenu />;
+
+  return <Dropdown />;
 }
 
 export default App;
