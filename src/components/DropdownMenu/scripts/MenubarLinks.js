@@ -140,39 +140,4 @@ Menubar.prototype.setFocusToNextItem = function (currentItem) {
   this.setFocusToItem(newItem);
 };
 
-Menubar.prototype.setFocusByFirstCharacter = function (currentItem, char) {
-  var start,
-    index,
-    char = char.toLowerCase();
-  var flag = currentItem.domNode.getAttribute("aria-expanded") === "true";
-
-  // Get start index for search based on position of currentItem
-  start = this.menubarItems.indexOf(currentItem) + 1;
-  if (start === this.menubarItems.length) {
-    start = 0;
-  }
-
-  // Check remaining slots in the menu
-  index = this.getIndexFirstChars(start, char);
-
-  // If not found in remaining slots, check from beginning
-  if (index === -1) {
-    index = this.getIndexFirstChars(0, char);
-  }
-
-  // If match was found...
-  if (index > -1) {
-    this.setFocusToItem(this.menubarItems[index]);
-  }
-};
-
-Menubar.prototype.getIndexFirstChars = function (startIndex, char) {
-  for (var i = startIndex; i < this.firstChars.length; i++) {
-    if (char === this.firstChars[i]) {
-      return i;
-    }
-  }
-  return -1;
-};
-
 export default Menubar;
