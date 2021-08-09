@@ -5,9 +5,9 @@ import Menubar from "./components/DropdownMenu/scripts/MenubarLinks";
 import Dropdown from "./components/Dropdown";
 
 function App() {
-  // return <DropdownMenu />;
+  return <DropdownMenu />;
 
-  return <Dropdown />;
+  // return <Dropdown />;
 }
 
 export default App;
