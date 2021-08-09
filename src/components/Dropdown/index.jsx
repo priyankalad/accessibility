@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import "./styles.css";
 
-export default function Dropdown() {
+const Dropdown = () => {
   const SPACEBAR_KEY_CODE = [0, 32];
   const ENTER_KEY_CODE = 13;
   const DOWN_ARROW_KEY_CODE = 40;
@@ -177,4 +177,6 @@ export default function Dropdown() {
       </ul>
     </main>
   );
-}
+};
+
+export default Dropdown;
