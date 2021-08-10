@@ -24,7 +24,7 @@ export default function useDropdownMenu1(itemCount) {
     }
 
     // If the menu is currently open, focus on the first item in the menu
-    if (isOpen) {
+    if (isOpen && !clickedOpen.current) {
       // && !clickedOpen.current) {
       moveFocus(0);
     } else if (!isOpen) {
@@ -134,7 +134,9 @@ export default function useDropdownMenu1(itemCount) {
       } else if (key === "Enter" || key === " ") {
         if (e.currentTarget.classList.contains("sub-demo")) {
           const btn = e.currentTarget.querySelector("button");
-
+          const listContainer = e.currentTarget.querySelector("div");
+          listContainer.tabIndex = 0;
+          // listContainer.focus();
           btn.focus();
 
           const keyDownEvent = new KeyboardEvent("keydown", {
