@@ -103,8 +103,14 @@ export default function useDropdownMenu1(itemCount) {
         setIsOpen(false);
       }
     } else {
-      clickedOpen.current = !isOpen;
-      setIsOpen(!isOpen);
+      if (e.currentTarget.classList.contains("sub-demo-button")) {
+        e.preventDefault();
+        clickedOpen.current = false;
+        setIsOpen(true);
+      } else {
+        clickedOpen.current = !isOpen;
+        setIsOpen(!isOpen);
+      }
     }
   };
 
@@ -124,34 +130,28 @@ export default function useDropdownMenu1(itemCount) {
       // Controls whether the menu is open or closed, if the button should regain focus on close, and if a handler function should be called
       if (key === "Escape") {
         setIsOpen(false);
-        (_a = buttonRef.current) === null || _a === void 0
-          ? void 0
-          : _a.focus();
+        console.log(
+          "e.currentTarget",
+          e.currentTarget.parentElement.previousSibling
+        );
+        if (e.currentTarget.parentElement.classList.contains("sub-demo-menu")) {
+          _a = e.currentTarget.parentElement.previousSibling;
+        } else {
+          _a = buttonRef.current;
+        }
+
+        console.log("_a", _a);
+        _a === null || _a === void 0 ? void 0 : _a.focus();
         return;
       } else if (key === "Tab") {
         setIsOpen(false);
         return;
       } else if (key === "Enter" || key === " ") {
-        if (e.currentTarget.classList.contains("sub-demo")) {
-          const btn = e.currentTarget.querySelector("button");
-          const listContainer = e.currentTarget.querySelector("div");
-          listContainer.tabIndex = 0;
-          // listContainer.focus();
-          btn.focus();
+        if (!e.currentTarget.href) {
+          e.currentTarget.click();
+        }
 
-          const keyDownEvent = new KeyboardEvent("keydown", {
-            code: "Enter",
-            key: "Enter",
-            charCode: 13,
-            keyCode: 13,
-            view: window,
-            bubbles: false,
-          });
-          btn.dispatchEvent(keyDownEvent);
-        } else {
-          if (!e.currentTarget.href) {
-            e.currentTarget.click();
-          }
+        if (!e.currentTarget.classList.contains("sub-demo-button")) {
           setIsOpen(false);
         }
 
