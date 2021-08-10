@@ -1,4 +1,4 @@
-ul[role="menubar"] {
+/* ul[role="menubar"] {
   margin: 10px;
   padding: 10px;
   font-size: 110%;
@@ -66,4 +66,4 @@ ul[role="menubar"] ul[role="menu"] li a {
 ul[role="menubar"] ul[role="menu"] a[aria-haspopup="true"]::after {
   content: url("../../images/right-arrow-brown.png");
   padding-right: 2em;
-}
+} */

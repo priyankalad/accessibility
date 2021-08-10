@@ -77,7 +77,6 @@ export default function useDropdownMenu1(itemCount) {
 
   // Create a handler function for the button's clicks and keyboard events
   const buttonListener = (e) => {
-    console.log("in button listener");
     // Detect if event was a keyboard event or a mouse event
     if (isKeyboardEvent(e)) {
       const key = e.key;
@@ -109,7 +108,6 @@ export default function useDropdownMenu1(itemCount) {
 
   // Create a function that handles menu logic based on keyboard events that occur on menu items
   const itemListener = (e) => {
-    console.log("itemListener called");
     let _a;
     const key = e.key;
     // Handle keyboard controls
@@ -167,8 +165,11 @@ export default function useDropdownMenu1(itemCount) {
     let _a;
     currentFocusIndex.current = itemIndex;
     _a = itemRefs[itemIndex] && itemRefs[itemIndex].current;
-
-    _a === null || _a === void 0 ? void 0 : _a.focus();
+    if (_a === null || _a === void 0) {
+      void 0;
+    } else {
+      _a.focus();
+    }
   };
 
   const buttonProps = {

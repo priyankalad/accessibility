@@ -17,14 +17,25 @@ export default function Navigation() {
     },
     {
       name: "example4",
-      items: ["sub1_example4", "sub2_example4", "sub3_example4"],
+      items: [
+        "sub1_example4",
+        {
+          name: "sub2_example4",
+          items: [
+            "sub1_sub2_example4",
+            "sub2_sub2_example4",
+            "sub3_sub2_example4",
+          ],
+        },
+        "sub3_example4",
+      ],
     },
   ];
   return (
     <ul className="nav" id="main_menu" aria-label="Main Menu" role="menubar">
       {menuItems.map((item, index) => {
         return (
-          <li>
+          <li className="demo">
             <DropDownMenu key={index} menuItem={item} />
           </li>
         );

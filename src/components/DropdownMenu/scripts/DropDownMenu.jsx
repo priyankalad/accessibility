@@ -2,7 +2,6 @@ import React from "react";
 import useDropdownMenu1 from "./useDropdownMenu1";
 
 export default function DropDownMenu({ menuItem }) {
-  console.log("menuItem", menuItem);
   const { buttonProps, itemProps, isOpen, setIsOpen } = useDropdownMenu1(
     menuItem.items.length
   );
@@ -17,16 +16,30 @@ export default function DropDownMenu({ menuItem }) {
       </button>
       <div className={`demo-menu ${isOpen ? "visible" : ""}`} role="menu">
         {menuItem.items.map((item, idx) => {
-          return (
-            <a
-              key={idx}
-              {...itemProps[idx]}
-              href="https://example.com"
-              id={`menuitem${idx}`}
-            >
-              {item}
-            </a>
-          );
+          if (typeof item === "object") {
+            return (
+              <a
+                key={idx}
+                className="sub-demo"
+                {...itemProps[idx]}
+                id={`menuitem${idx}`}
+              >
+                <DropDownMenu menuItem={item} />
+              </a>
+            );
+          } else {
+            return (
+              <a
+                className="demo-menuitem"
+                key={idx}
+                {...itemProps[idx]}
+                href="https://example.com"
+                id={`menuitem${idx}`}
+              >
+                {item}
+              </a>
+            );
+          }
         })}
       </div>
     </React.Fragment>

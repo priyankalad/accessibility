@@ -2,6 +2,10 @@
   display: flex;
   justify-content: flex-start;
 }
+.demo {
+  position: relative;
+  list-style: none;
+}
 
 .demo-button {
   appearance: none;
@@ -61,6 +65,9 @@
   z-index: 2;
 }
 
+.demo-menu .demo-submenu {
+}
+
 .demo-menu.visible {
   transform: translateY(-0.3rem);
   transition: transform 0.2s ease, opacity 0.2s ease, visibility 0s linear 0s;
@@ -68,13 +75,17 @@
   opacity: 1;
 }
 
-.demo-menu a {
+/* .demo-menu a {
   display: block;
   font-size: 1.2rem;
   padding: 0.25rem;
-}
+} */
 
-.demo-menu a {
+.demo-menu .demo-menuitem,
+.demo-menu .demo-submenu {
+  display: block;
+  font-size: 1.2rem;
+  padding: 0.25rem;
   color: #29779e;
   text-decoration: none;
   cursor: pointer;
@@ -88,6 +99,9 @@
 }
 
 .demo-menu a:focus {
+  border-color: #3a8eb8;
+}
+.demo-menu .sub-demo:focus {
   border-color: #3a8eb8;
 }
 
@@ -107,3 +121,22 @@ ul.behavior {
 ul.behavior li {
   padding: 0.25rem 0;
 }
+
+.sub-demo .demo-button {
+  display: block;
+  font-size: 1.2rem;
+  padding: 0.25rem;
+  color: #29779e;
+  text-decoration: none;
+  cursor: pointer;
+  outline: none;
+  border: 0.1rem solid transparent;
+  border-radius: 0.2rem;
+}
+
+/* .sub-demo:focus {
+  border-color: #3a8eb8;
+} */
+/* .sub-demo .demo-button:focus {
+  border-color: #3a8eb8 !important;
+} */
