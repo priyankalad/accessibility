@@ -130,17 +130,13 @@ export default function useDropdownMenu1(itemCount) {
       // Controls whether the menu is open or closed, if the button should regain focus on close, and if a handler function should be called
       if (key === "Escape") {
         setIsOpen(false);
-        console.log(
-          "e.currentTarget",
-          e.currentTarget.parentElement.previousSibling
-        );
+
         if (e.currentTarget.parentElement.classList.contains("sub-demo-menu")) {
           _a = e.currentTarget.parentElement.previousSibling;
         } else {
           _a = buttonRef.current;
         }
 
-        console.log("_a", _a);
         _a === null || _a === void 0 ? void 0 : _a.focus();
         return;
       } else if (key === "Tab") {
