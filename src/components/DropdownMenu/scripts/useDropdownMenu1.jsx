@@ -24,7 +24,8 @@ export default function useDropdownMenu1(itemCount) {
     }
 
     // If the menu is currently open, focus on the first item in the menu
-    if (isOpen && !clickedOpen.current) {
+    if (isOpen) {
+      // && !clickedOpen.current) {
       moveFocus(0);
     } else if (!isOpen) {
       clickedOpen.current = false;
@@ -95,7 +96,6 @@ export default function useDropdownMenu1(itemCount) {
       }
       if (key === "Enter" || key === " ") {
         e.preventDefault();
-        console.log("isOPen", isOpen);
         setIsOpen(true);
       }
       if (key === "Escape") {
@@ -132,12 +132,20 @@ export default function useDropdownMenu1(itemCount) {
         setIsOpen(false);
         return;
       } else if (key === "Enter" || key === " ") {
-        console.log("enter pressed");
         if (e.currentTarget.classList.contains("sub-demo")) {
           const btn = e.currentTarget.querySelector("button");
-          btn.click();
-          //   btn.addEventListener("keydown", buttonListener);
-          //   btn.dispatchEvent(new KeyboardEvent("keydown", { key: "Enter" }));
+
+          btn.focus();
+
+          const keyDownEvent = new KeyboardEvent("keydown", {
+            code: "Enter",
+            key: "Enter",
+            charCode: 13,
+            keyCode: 13,
+            view: window,
+            bubbles: false,
+          });
+          btn.dispatchEvent(keyDownEvent);
         } else {
           if (!e.currentTarget.href) {
             e.currentTarget.click();

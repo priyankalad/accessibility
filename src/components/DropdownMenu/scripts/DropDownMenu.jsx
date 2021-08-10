@@ -6,19 +6,21 @@ export default function DropDownMenu({ menuItem }) {
     menuItem.items.length
   );
 
-  const handleClick = (e) => {
-    // const dropdownButton = e.target.querySelector("button");
-    // console.log(dropdownButton);
-    // dropdownButton.
-    // const keyboardEvent = new KeyboardEvent("keydown", {
-    //   code: "Enter",
-    //   key: "Enter",
-    //   charCode: 13,
-    //   keyCode: 13,
-    //   view: window,
-    //   bubbles: false,
-    // });
-    // dropdownButton.dispatchEvent(keyboardEvent);
+  const pressButton = (e, itemProp) => {
+    console.log("itemProp", itemProp);
+    const btn = e.currentTarget.querySelector("button");
+
+    btn.focus();
+
+    const keyDownEvent = new KeyboardEvent("keydown", {
+      code: "Enter",
+      key: "Enter",
+      charCode: 13,
+      keyCode: 13,
+      view: window,
+      bubbles: true,
+    });
+    btn.dispatchEvent(keyDownEvent);
   };
   return (
     <React.Fragment>
@@ -34,6 +36,7 @@ export default function DropDownMenu({ menuItem }) {
                 className="sub-demo"
                 {...itemProps[idx]}
                 id={`menuitem${idx}`}
+                // onClick={(e) => pressButton(e, itemProps[idx])}
               >
                 <DropDownMenu menuItem={item} />
               </a>
