@@ -1,7 +1,7 @@
 import React from "react";
 import useDropdownMenu1 from "./useDropdownMenu1";
 
-export default function DropDownMenu({ menuItem }) {
+export default function DropDownMenu({ dataKey, menuItem }) {
   const { buttonProps, itemProps, isOpen, setIsOpen } = useDropdownMenu1(
     menuItem.items.length
   );
@@ -45,7 +45,7 @@ export default function DropDownMenu({ menuItem }) {
                         key={idx}
                         {...itemProps1[idx]}
                         href="https://example.com"
-                        id={`menuitem${idx}`}
+                        id={`submenuitem${idx}_${dataKey}`}
                       >
                         {itm}
                       </a>
@@ -71,7 +71,7 @@ export default function DropDownMenu({ menuItem }) {
                 key={idx}
                 {...itemProps[idx]}
                 href="https://example.com"
-                id={`menuitem${idx}`}
+                id={`menuitem${idx}_${dataKey}`}
               >
                 {item}
               </a>

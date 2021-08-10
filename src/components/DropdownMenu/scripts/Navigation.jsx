@@ -37,8 +37,8 @@ export default function Navigation() {
     <ul className="nav" id="main_menu" aria-label="Main Menu" role="menubar">
       {menuItems.map((item, index) => {
         return (
-          <li className="demo">
-            <DropDownMenu key={index} menuItem={item} />
+          <li className="demo" role="menuitem">
+            <DropDownMenu key={index} dataKey={index} menuItem={item} />
           </li>
         );
       })}

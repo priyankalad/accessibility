@@ -9,7 +9,12 @@ import "./App.css";
 import Navigation from "./components/DropdownMenu/scripts/Navigation";
 
 function App() {
-  return <Navigation />;
+  return (
+    <main>
+      <h1>Exrcise for web accessibility</h1>
+      <Navigation />
+    </main>
+  );
 
   // return <Dropdown />;
 }
