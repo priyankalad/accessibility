@@ -14,6 +14,7 @@ export default function useDropdownMenu1(itemCount) {
     },
     [itemCount]
   );
+
   //Focus the first item when the menu opens
   useEffect(() => {
     // Stop if this is the first fire of the Hook, and update the ref
@@ -94,6 +95,7 @@ export default function useDropdownMenu1(itemCount) {
       }
       if (key === "Enter" || key === " ") {
         e.preventDefault();
+        console.log("isOPen", isOpen);
         setIsOpen(true);
       }
       if (key === "Escape") {
@@ -130,10 +132,19 @@ export default function useDropdownMenu1(itemCount) {
         setIsOpen(false);
         return;
       } else if (key === "Enter" || key === " ") {
-        if (!e.currentTarget.href) {
-          e.currentTarget.click();
+        console.log("enter pressed");
+        if (e.currentTarget.classList.contains("sub-demo")) {
+          const btn = e.currentTarget.querySelector("button");
+          btn.click();
+          //   btn.addEventListener("keydown", buttonListener);
+          //   btn.dispatchEvent(new KeyboardEvent("keydown", { key: "Enter" }));
+        } else {
+          if (!e.currentTarget.href) {
+            e.currentTarget.click();
+          }
+          setIsOpen(false);
         }
-        setIsOpen(false);
+
         return;
       }
       // Controls the current index to focus
@@ -164,7 +175,9 @@ export default function useDropdownMenu1(itemCount) {
   const moveFocus = (itemIndex) => {
     let _a;
     currentFocusIndex.current = itemIndex;
+
     _a = itemRefs[itemIndex] && itemRefs[itemIndex].current;
+
     if (_a === null || _a === void 0) {
       void 0;
     } else {

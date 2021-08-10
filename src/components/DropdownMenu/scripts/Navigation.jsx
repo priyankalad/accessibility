@@ -25,6 +25,8 @@ export default function Navigation() {
             "sub1_sub2_example4",
             "sub2_sub2_example4",
             "sub3_sub2_example4",
+            "sub4_sub2_example4",
+            "sub5_sub2_example4",
           ],
         },
         "sub3_example4",

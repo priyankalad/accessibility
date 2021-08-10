@@ -6,8 +6,19 @@ export default function DropDownMenu({ menuItem }) {
     menuItem.items.length
   );
 
-  const handleClick = () => {
-    console.log("clicked");
+  const handleClick = (e) => {
+    // const dropdownButton = e.target.querySelector("button");
+    // console.log(dropdownButton);
+    // dropdownButton.
+    // const keyboardEvent = new KeyboardEvent("keydown", {
+    //   code: "Enter",
+    //   key: "Enter",
+    //   charCode: 13,
+    //   keyCode: 13,
+    //   view: window,
+    //   bubbles: false,
+    // });
+    // dropdownButton.dispatchEvent(keyboardEvent);
   };
   return (
     <React.Fragment>
