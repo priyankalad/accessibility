@@ -1,4 +1,5 @@
 import React from "react";
+import SubMenu from "./SubMenu";
 import useDropdownMenu1 from "./useDropdownMenu1";
 
 export default function DropDownMenu({ dataKey, menuItem }) {
@@ -14,53 +15,12 @@ export default function DropDownMenu({ dataKey, menuItem }) {
       <div className={`demo-menu ${isOpen ? "visible" : ""}`} role="menu">
         {menuItem.items.map((item, idx) => {
           if (typeof item === "object") {
-            const {
-              buttonProps: buttonProps1,
-              itemProps: itemProps1,
-              isOpen: isOpen1,
-              setIsOpen,
-            } = useDropdownMenu1(item.items.length);
-
             return (
-              <React.Fragment>
-                {/* <a {...itemProps[idx]}> */}
-                <a
-                  {...buttonProps1}
-                  {...itemProps[idx]}
-                  className="sub-demo-button"
-                >
-                  {item.name}
-                </a>
-
-                <div
-                  className={`sub-demo-menu ${isOpen1 ? "visible" : ""}`}
-                  role="menu"
-                >
-                  {item.items.map((itm, idx) => {
-                    return (
-                      <a
-                        className="demo-menuitem"
-                        key={idx}
-                        {...itemProps1[idx]}
-                        href="https://example.com"
-                        id={`submenuitem${idx}_${dataKey}`}
-                      >
-                        {itm}
-                      </a>
-                    );
-                  })}
-                </div>
-                {/* </a> */}
-              </React.Fragment>
-              // <a
-              //   key={idx}
-              //   className="sub-demo"
-              //   {...itemProps[idx]}
-              //   id={`menuitem${idx}`}
-              //   // onClick={(e) => pressButton(e, itemProps[idx])}
-              // >
-              //   <DropDownMenu menuItem={item} />
-              // </a>
+              <SubMenu
+                dataKey={idx}
+                menuItem={item}
+                parentItemProps={itemProps[idx]}
+              />
             );
           } else {
             return (

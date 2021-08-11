@@ -1,7 +1,7 @@
 import React from "react";
 import useDropdownMenu1 from "./useDropdownMenu1";
 
-export default function SubMenu({ menuItem }) {
+export default function SubMenu({ menuItem, parentItemProps, dataKey }) {
   const { buttonProps, itemProps, isOpen, setIsOpen } = useDropdownMenu1(
     menuItem.items.length
   );
@@ -11,35 +11,23 @@ export default function SubMenu({ menuItem }) {
   };
   return (
     <React.Fragment>
-      <button {...buttonProps} className="demo-button">
+      <a {...buttonProps} {...parentItemProps} className="sub-demo-button">
         {menuItem.name}
-      </button>
-      <div className={`demo-menu ${isOpen ? "visible" : ""}`} role="menu">
-        {menuItem.items.map((item, idx) => {
-          // if (typeof item === "object") {
-          //   return (
-          //     <li
-          //       key={idx}
-          //       className="sub-demo"
-          //       {...itemProps[idx]}
-          //       id={`menuitem${idx}`}
-          //     >
-          //       <DropDownMenu menuItem={item} />
-          //     </li>
-          //   );
-          // } else {
+      </a>
+
+      <div className={`sub-demo-menu ${isOpen ? "visible" : ""}`} role="menu">
+        {menuItem.items.map((itm, idx) => {
           return (
             <a
               className="demo-menuitem"
               key={idx}
               {...itemProps[idx]}
               href="https://example.com"
-              id={`menuitem${idx}`}
+              id={`submenuitem${idx}_${dataKey}`}
             >
-              {item}
+              {itm}
             </a>
           );
-          //}
         })}
       </div>
     </React.Fragment>
