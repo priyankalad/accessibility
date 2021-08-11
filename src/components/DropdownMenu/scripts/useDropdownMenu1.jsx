@@ -25,7 +25,6 @@ export default function useDropdownMenu1(itemCount) {
 
     // If the menu is currently open, focus on the first item in the menu
     if (isOpen && !clickedOpen.current) {
-      // && !clickedOpen.current) {
       moveFocus(0);
     } else if (!isOpen) {
       clickedOpen.current = false;
@@ -77,15 +76,9 @@ export default function useDropdownMenu1(itemCount) {
     };
   }, [isOpen]);
 
-  const closePopup = () => {
-    clickedOpen.current = false;
-    setIsOpen(false);
-  };
-
   // Create a handler function for the button's clicks and keyboard events
   const buttonListener = (e) => {
     // Detect if event was a keyboard event or a mouse event
-
     if (isKeyboardEvent(e)) {
       const key = e.key;
       if (!["Enter", " ", "Tab", "ArrowDown", "Escape"].includes(key)) {
@@ -122,7 +115,7 @@ export default function useDropdownMenu1(itemCount) {
 
   // Create a function that handles menu logic based on keyboard events that occur on menu items
   const itemListener = (e) => {
-    let _a;
+    let itemToFocus;
     const key = e.key;
     // Handle keyboard controls
     if (
@@ -138,12 +131,14 @@ export default function useDropdownMenu1(itemCount) {
         setIsOpen(false);
 
         if (e.currentTarget.parentElement.classList.contains("sub-demo-menu")) {
-          _a = e.currentTarget.parentElement.previousSibling;
+          itemToFocus = e.currentTarget.parentElement.previousSibling;
         } else {
-          _a = buttonRef.current;
+          itemToFocus = buttonRef.current;
         }
 
-        _a === null || _a === void 0 ? void 0 : _a.focus();
+        itemToFocus === null || itemToFocus === void 0
+          ? void 0
+          : itemToFocus.focus();
         return;
       } else if (key === "Tab") {
         setIsOpen(false);
@@ -185,15 +180,14 @@ export default function useDropdownMenu1(itemCount) {
   };
 
   const moveFocus = (itemIndex) => {
-    let _a;
+    let itemToFocus;
     currentFocusIndex.current = itemIndex;
+    itemToFocus = itemRefs[itemIndex] && itemRefs[itemIndex].current;
 
-    _a = itemRefs[itemIndex] && itemRefs[itemIndex].current;
-
-    if (_a === null || _a === void 0) {
+    if (itemToFocus === null || itemToFocus === void 0) {
       void 0;
     } else {
-      _a.focus();
+      itemToFocus.focus();
     }
   };
 
