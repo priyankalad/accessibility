@@ -138,7 +138,7 @@ ul.behavior li {
 }
 
 .demo:hover .demo-menu,
-.sub-demo-button:hover + .sub-demo-menu {
+.submenuContainer:hover .sub-demo-menu {
   transform: translateY(-0.3rem);
   transition: transform 0.2s ease, opacity 0.2s ease, visibility 0s linear 0s;
   visibility: visible;

@@ -17,7 +17,7 @@ export default function DropDownMenu({ dataKey, menuItem }) {
           if (typeof item === "object") {
             return (
               <SubMenu
-                dataKey={idx}
+                dataKey={`${dataKey}_${idx}`}
                 menuItem={item}
                 parentItemProps={itemProps[idx]}
               />
