@@ -85,20 +85,8 @@ export default function useDropdownMenu1(itemCount) {
   // Create a handler function for the button's clicks and keyboard events
   const buttonListener = (e) => {
     // Detect if event was a keyboard event or a mouse event
-    if (e.type === "mouseover") {
-      const menuList = e.currentTarget.nextSibling;
-      if (menuList.classList.contains("sub-demo-menu")) {
-        clickedOpen.current = !isOpen;
-        setIsOpen(!isOpen);
-      } else {
-        clickedOpen.current = true;
-        setIsOpen(true);
-      }
 
-      if (!menuList.classList.contains("sub-demo-menu")) {
-        menuList.addEventListener("mouseleave", closePopup);
-      }
-    } else if (isKeyboardEvent(e)) {
+    if (isKeyboardEvent(e)) {
       const key = e.key;
       if (!["Enter", " ", "Tab", "ArrowDown", "Escape"].includes(key)) {
         return;
@@ -189,13 +177,6 @@ export default function useDropdownMenu1(itemCount) {
         moveFocus(newFocusIndex);
       }
       return;
-    } else if (e.type === "mouseover") {
-      if (e.currentTarget.classList.contains("sub-demo-button")) {
-        const menuList = e.currentTarget.nextSibling;
-        if (menuList.classList.contains("visible")) {
-          menuList.addEventListener("mouseleave", closePopup);
-        }
-      }
     }
   };
 
@@ -219,7 +200,6 @@ export default function useDropdownMenu1(itemCount) {
   const buttonProps = {
     onKeyDown: buttonListener,
     onClick: buttonListener,
-    onMouseOver: buttonListener,
     tabIndex: 0,
     ref: buttonRef,
     role: "button",

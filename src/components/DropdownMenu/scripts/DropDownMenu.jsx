@@ -27,15 +27,13 @@ export default function DropDownMenu({ dataKey, menuItem }) {
                 <a
                   {...buttonProps1}
                   {...itemProps[idx]}
-                  className="sub-demo-button demo-button"
+                  className="sub-demo-button"
                 >
                   {item.name}
                 </a>
 
                 <div
-                  className={`sub-demo-menu demo-menu ${
-                    isOpen1 ? "visible" : ""
-                  }`}
+                  className={`sub-demo-menu ${isOpen1 ? "visible" : ""}`}
                   role="menu"
                 >
                   {item.items.map((itm, idx) => {
