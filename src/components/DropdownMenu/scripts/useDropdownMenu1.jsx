@@ -86,11 +86,18 @@ export default function useDropdownMenu1(itemCount) {
   const buttonListener = (e) => {
     // Detect if event was a keyboard event or a mouse event
     if (e.type === "mouseover") {
-      const menuContainer = e.currentTarget.parentElement;
-      clickedOpen.current = !isOpen;
-      setIsOpen(!isOpen);
+      const menuList = e.currentTarget.nextSibling;
+      if (menuList.classList.contains("sub-demo-menu")) {
+        clickedOpen.current = !isOpen;
+        setIsOpen(!isOpen);
+      } else {
+        clickedOpen.current = true;
+        setIsOpen(true);
+      }
 
-      menuContainer.addEventListener("mouseout", closePopup);
+      if (!menuList.classList.contains("sub-demo-menu")) {
+        menuList.addEventListener("mouseleave", closePopup);
+      }
     } else if (isKeyboardEvent(e)) {
       const key = e.key;
       if (!["Enter", " ", "Tab", "ArrowDown", "Escape"].includes(key)) {
@@ -182,6 +189,13 @@ export default function useDropdownMenu1(itemCount) {
         moveFocus(newFocusIndex);
       }
       return;
+    } else if (e.type === "mouseover") {
+      if (e.currentTarget.classList.contains("sub-demo-button")) {
+        const menuList = e.currentTarget.nextSibling;
+        if (menuList.classList.contains("visible")) {
+          menuList.addEventListener("mouseleave", closePopup);
+        }
+      }
     }
   };
 
