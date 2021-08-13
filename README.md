@@ -494,5 +494,5 @@ e.g. _This example is a bad practice. A shopping cart uses two simple glyphs to 
 
 <label for="birthday1">Birthday:</label>
 <input type="text" name="field1b" autocomplete="birthday" id="birthday1>//incorrect
-<input type="text" name="field1b" autocomplete="bday" id="birthday1>
+<input type="text" name="field1b" autocomplete="bday" id="birthday1>//correct
 ```
