@@ -194,15 +194,17 @@ e.g. _if the video included a step-by step diagram of a chemical process, the au
 
 ###### 1. If any images of text are used to convey structural information of the document, Check that the proper semantic structure (e.g., HTML headings) is used with the text to convey the information.
 
+&nbsp;
+
 ```
 <img src="Chapter1.gif" alt="Chapter One"/> //wrong
 <h1><img src="Chapter1.gif" alt="Chapter One"></h1> //correct
 <h1 class="heading">Chapter One</h1> //more appropriate
-<p>Once upon a time in the land of the Web.....
-</p>
 ```
 
 ###### 1.1 For styled text that conveys information, Check that in addition to styling, the proper semantic structure is used with the text to convey the information.
+
+&nbsp;
 
 ```
 <style type="text/css">
@@ -236,7 +238,7 @@ _If this table was to be interpreted and spoken by a screen reader it would spea
     Web Content Accessibility Guidelines including blindness and low vision,
     2.0 (WCAG 2.0) covers a wide range of deafness and hearing loss, learning
 
-###### 3. Do not attach Javascript event handlers to emulate links.
+###### 3. Do not attach Javascript event handlers to emulate links.(1.3.1)
 
 - A link created in this manner cannot be tabbed to from the keyboard and does not gain keyboard focus like other controls and/or links
 - . If scripting events are used to emulate links, user agents including assistive technology may not be able to identify the links in the content as links.
@@ -264,7 +266,7 @@ function doKeyPress(url) {
 </p>
 ```
 
-###### 4. Do not use structural markup to achieve a presentational effect, where structural markup indicates relationships that do not exist in the content.
+###### 4. Do not use structural markup to achieve a presentational effect, where structural markup indicates relationships that do not exist in the content.(1.3.1)
 
 e.g. _Example 1: In this example, a heading element is used to display an address in a large, bold font. The address does not identify a new section of the document, however, so it should not be marked as a heading_
 
@@ -285,7 +287,7 @@ _Example 2: The h1 and h2 elements are used properly to structure document, but 
 </p>
 ```
 
-###### 5. Do not use th elements, caption elements, or non-empty summary attributes in layout tables
+###### 5. Do not use th elements, caption elements, or non-empty summary attributes in layout tables(1.3.1)
 
 - When a table is used for layout purposes the th element should not be used. Since the table is not presenting data there is no need to mark any cells as column or row headers.
 - Likewise, there is no need for an additional description of a table which is only used to layout content. Do not include a summary attribute and do not use the summary attribute to describe the table as, for instance, "layout table". When spoken, this information does not provide value and will only distract users navigating the content via a screen reader.
@@ -307,7 +309,7 @@ _Example 2: The h1 and h2 elements are used properly to structure document, but 
  </table>
 ```
 
-###### 6. Do not use `pre` element to markup tabular information
+###### 6. Do not use `pre` element to markup tabular information(1.3.1)
 
 The pre element preserves only visual formatting. If the pre element is used to markup tabular information, the visually implied logical relationships between the table cells and the headers are lost
 e.g _A schedule formatted with tabs between columns which is a bad practice_
@@ -322,7 +324,7 @@ e.g _A schedule formatted with tabs between columns which is a bad practice_
  </pre>
 ```
 
-###### 7. Do not use `:before` and `:after` pseudo-elements and the `content` property in CSS to insert non-decorative content
+###### 7. Do not use `:before` and `:after` pseudo-elements and the `content` property in CSS to insert non-decorative content(1.3.1)
 
 For users who need to customize style information in order to view content according to their needs, they may not be able to access the information that is inserted using CSS
 &nbsp;
@@ -345,11 +347,11 @@ q:after  { content: close-quote }
 </p>
 ```
 
-###### 8. If `id` and `headers` attributes are used to associate data cells to header cells, ensure that programmatic association is correct.
+###### 8. If `id` and `headers` attributes are used to associate data cells to header cells, ensure that programmatic association is correct. (1.3.1)
 
 &nbsp;
 
-###### 9. Make sure that data tables use header elements (th) or other appropriate table mark-up.
+###### 9. Make sure that data tables use header elements (th) or other appropriate table mark-up.(1.3.1)
 
 table headers can be correctly programmatically determined by use of one of the following mechanisms:
 
@@ -360,6 +362,137 @@ table headers can be correctly programmatically determined by use of one of the 
 - headers marked up as td elements with the scope attribute
 - headers marked up with ARIA role attributes rowheader or columnheader
 
-###### 10. Do not use `role = 'presentation'` to an element whose purpose is to convey information or relationships in the content
+###### 10. Do not use `role = 'presentation'` to an element whose purpose is to convey information or relationships in the content (1.3.1)
 
-e.g. \*\*
+e.g. _In below example, tabular data is marked up with role=presentation. Though design layout tables can be marked up in such a way, data tables need to retain their semantic information and should therefore not be marked up with role=presentation._
+
+```
+<table role="presentation">
+   <caption>Fruits and their colors</caption>
+   <tr>
+     <th>Name</th>
+     <th>Color</th>
+   </tr>
+   <tr>
+    <td scope="row">banana</td>
+    <td>yellow</td>
+   </tr>
+  </table>
+```
+
+###### 11. Do not use white space characters, such as space, tab, line break, or carriage return, to format individual words(1.3.2)
+
+- When blank characters are inserted to control letter spacing within a word, they may change the interpretation of the word or cause it not to be programmatically recognized as a single word.
+- Inserting white space characters into an acronym is fine, since the white space does not change the interpretation of the acronym and may make it easier to understand.
+  e.g. This example has white spaces within a word to space out the letters in a heading. Screen readers may read each letter individually instead of the word "Welcome."
+
+```
+<h1>W e l c o m e</h1> //not recommended
+```
+
+###### 12. Reading order of the content and the meaning of the content should be preserved in the absense of stylesheet.(1.3.2)
+
+e.g. _In this example a class is defined for each object that is being positioned. When style sheets are applied, the text appears in two columns. Elements of class "menu1" (Products) and "menu2" (Locations) appear as column headings. "Telephones and Computers" are listed under Products and "Idaho" and "Wisconsin" are listed under Locations (note the different order for Idaho and Wisconsin in the source code order)._
+_A better solution for this content would be to use more meaningful elements, such as a table or a definition list_
+
+```
+//Below code is a bad practice
+<div class="box">
+     <span class="menu1">Products</span>
+     <span class="menu2">Locations</span>
+     <span class="item1">Telephones</span>
+     <span class="item2">Computers</span>
+     <span class="item5">Wisconsin</span>
+     <span class="item4">Idaho</span>
+</div>
+Here are the styles for the above content:
+
+.menu1 {
+     position: absolute;
+     top: 3em;
+     left: 0em;
+     margin: 0px;
+     font-family: sans-serif;
+     font-size: 120%;
+     color: red;
+     background-color: white
+}
+.menu2 {
+     position: absolute;
+     top: 3em;
+     left: 10em;
+     margin: 0px;
+     font-family: sans-serif;
+     font-size: 120%;
+     color: red;
+     background-color: white
+}
+.item1 {
+     position: absolute;
+     top: 7em;
+     left: 0em;
+     margin: 0px
+}
+.item2 {
+     position: absolute;
+     top: 8em;
+     left: 0em;
+     margin: 0px
+}
+.item4 {
+     position: absolute;
+     top: 7em;
+     left: 14em;
+     margin: 0px
+}
+.item5 {
+     position: absolute;
+     top: 8em; left: 14em;
+     margin: 0px
+}
+#box {
+     position: absolute;
+     top: 5em;
+     left: 5em
+}
+```
+
+###### 13. Textual references to content should not rely on only the visual shape or location of the content. (1.3.3)
+
+- When only visual identification or location is used, users with visual disabilities may find it difficult to locate content since they cannot see the screen or may perceive only a small portion of the screen at one time.
+
+e.g. _Below two examples are bad practice_
+
+_Example 1: The navigation instructions for a site state, "To go to next page, press the button to the right. To go back to previous page, press the button to the left._
+
+_Example 2: A user is completing an on-line survey. There are two buttons at the bottom of the survey form. The instructions state, "Press the square button to exit the survey without saving, Press the triangle button to save in-progress survey results._
+
+###### 14. Do not convey information using a graphical symbol as it can make content difficult to comprehend. (1.3.3)
+
+- A graphical symbol may be an image, an image of text or a pictorial or decorative character symbol (glyph) which imparts information nonverbally.
+- If a graphical symbol is used to convey information, provide an alternative using features of the technology or use a different mechanism that can be marked with an alternative to represent the graphical symbol. For example, an image with a text alternative can be used instead of the glyph.
+
+e.g. _This example is a bad practice. A shopping cart uses two simple glyphs to indicate whether an item is available for immediate shipment. A circle indicates that the item is in stock and ready to ship. An square indicates that the item is currently on back order and not available for immediate shipment. The instructions above items refer to the circle and square as the sole means to differentiating whether an item is available._
+
+###### 15. Do not restrict the view of content to a single orientation (1.3.4)
+
+- When content is presented with a restriction to a specific orientation, users must orient their devices to view the content in the orientation that the author imposed. Some users have their devices mounted in a fixed orientation (e.g. on the arm of a power wheelchair), and if the content cannot be viewed in that orientation it creates problems for the user.
+
+- Use CSS to set the orientation to allow both landscape and portrait.
+
+###### 16. Ensure that the purpose of a form input collecting information about the user can be programmatically determined, so that user agents can extract and present this purpose to users using different modalities. (1.3.5)
+
+- For some input fields, the type attribute already offers a way to broadly specify the intention of the input field, for example, input type="tel", input type="email", or input type="password".
+
+- The HTML autocomplete attribute only accepts a certain number of specific well-defined fixed values. This allows a more fine-grained definition or identification of purpose than the type attribute, for example, by allowing the author to specify a specific type of name: Name (autocomplete="name”), Given Name (autocomplete="given-name”), Family Name (autocomplete="family-name”), as well as Username (autocomplete="username”), and Nickname (autocomplete="nickname”). [More list on autocomplete](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete)
+  e.g.
+
+```
+<label for="name1">Name:</label>
+<input type="text" name="field1a" autocomplete="email" id="name1"> //incorrect
+<input type="text" name="field1a" autocomplete="name" id="name1"> //correct
+
+<label for="birthday1">Birthday:</label>
+<input type="text" name="field1b" autocomplete="birthday" id="birthday1>//incorrect
+<input type="text" name="field1b" autocomplete="bday" id="birthday1>
+```
