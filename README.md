@@ -157,7 +157,7 @@ Point 14 can be achieved alternatively using the built-in feature "longdesc"
 
 <a id="time-based-media"></a>
 
-### 2. [TIME-BASED MEDIA]
+### 2. TIME-BASED MEDIA
 
 ###### 1. Provide transcripts for the audio content as users with audio processing disabilities need the audio content to be provided in an accessible format.
 
